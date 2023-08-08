@@ -47,7 +47,9 @@ fun HistoryScreen(
     var trans = viewModel.trans.value
 //    var trans = viewModel.trans.observeAsState(listOf()).value
     var transSize = countTransHistorySize(trans) - 4
-    LazyColumn {
+    
+    if(trans.namaMerchant != "" && trans.transAmount != 0){
+        LazyColumn {
             items(transSize) {
                 Card(
                     shape = RoundedCornerShape(5.dp),
@@ -64,6 +66,7 @@ fun HistoryScreen(
                 }
             }
         }
+    }
 
 }
 
@@ -72,3 +75,4 @@ fun countTransHistorySize(trans: TransHistory): Int {
     // Count the number of properties in the TransHistory class
     return trans.javaClass.declaredFields.size
 }
+
