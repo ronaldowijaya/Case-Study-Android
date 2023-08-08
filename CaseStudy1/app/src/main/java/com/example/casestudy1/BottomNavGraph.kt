@@ -6,12 +6,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.casestudy1.screens.HistoryScreen
 import com.example.casestudy1.screens.HomeScreen
-import com.example.casestudy1.screens.PayScreen
 import com.example.casestudy1.screens.ScanScreen
 
 @Composable
 fun BottomNavGraph(
-    navController: NavHostController
+    navController: NavHostController,
+    myViewModel: MyViewModel
 ){
     NavHost(
         navController = navController,
@@ -20,22 +20,22 @@ fun BottomNavGraph(
         composable(
             route = Screen.Home.route
         ){
-            HomeScreen(/*navController = navController*/)
+            HomeScreen(viewModel = myViewModel)
         }
         composable(
             route = Screen.Scan.route
         ){
-            ScanScreen(/*navController = navController*/)
+            ScanScreen(viewModel = myViewModel, navController = navController)
         }
         /*composable(
                 route = Screen.Pay.route
                 ){
             PayScreen(*//*navController = navController*//*)
         }*/
-        /*composable(
+        composable(
             route = Screen.History.route
         ){
-            HistoryScreen(*//*navController = navController*//*)
-        }*/
+            HistoryScreen(viewModel = myViewModel)
+        }
     }
 }

@@ -24,7 +24,7 @@ fun MainScreen(){
     Scaffold(
         bottomBar = { BottomBar(navController = navController)}
     ) {
-        BottomNavGraph(navController = navController)
+        BottomNavGraph(navController = navController, myViewModel = MyViewModel())
     }
 }
 
@@ -34,7 +34,7 @@ fun BottomBar(navController: NavController){
         BottomBarScreen.Home,
         BottomBarScreen.Scan,
 //        BottomBarScreen.Pay,
-//        BottomBarScreen.History
+        BottomBarScreen.History
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination

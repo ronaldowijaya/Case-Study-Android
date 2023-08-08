@@ -8,7 +8,7 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class BottomBarScreen(
-    val route: String,
+    var route: String,
     val title: String,
     val icon: ImageVector
 ){
@@ -27,9 +27,9 @@ sealed class BottomBarScreen(
         title = "Pay",
         icon = Icons.Default.Send
     )*/
-    /*object History: BottomBarScreen(
+    object History: BottomBarScreen(
         route = "history_screen",
         title = "History",
         icon = Icons.Default.Notifications
-    )*/
+    )
 }

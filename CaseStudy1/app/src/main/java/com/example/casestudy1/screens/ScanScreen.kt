@@ -39,22 +39,37 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.casestudy1.BottomBarScreen.History.route
+import com.example.casestudy1.MyViewModel
 import com.example.casestudy1.QrCodeAnalyzer
 import com.example.casestudy1.Screen
+import com.example.casestudy1.model.Saldo
+import com.example.casestudy1.model.TransHistory
 
-var saldo = 75000
 var isPay = false
+var saldo: Saldo = Saldo()
+//var trans: TransHistory = TODO()
 
 @Composable
 fun ScanScreen(
+    viewModel: MyViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    navController: NavController
 ){
-    //qr code
     var code  by remember {
         mutableStateOf("")
     }
+
+    var trans = viewModel.trans.value
+
+    /*var trans by remember {
+        mutableStateOf(TransHistory("","","",0))
+    }*/
 
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -135,7 +150,7 @@ fun ScanScreen(
                     .padding(0.dp, 20.dp, 0.dp, 0.dp)
             )
             Text(
-                text =  getNominal(code, saldo) ,
+                text =  getNominal(saldo.saldo) ,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center,
@@ -148,6 +163,8 @@ fun ScanScreen(
                 contentPadding = PaddingValues(0.dp,10.dp,0.dp,90.dp),
                 onClick = {
                     isPay = true
+                    saveData(code, trans)
+                    navController.navigate(Screen.Scan.route)
 
                 }
             ) {
@@ -159,13 +176,24 @@ fun ScanScreen(
 }
 
 @Composable
-fun getNominal(name: String, saldo: Int): String{
-    if(name != "" && isPay){
-        var result = saldo - name.split(".").toTypedArray()[3].toInt()
-        return "Pembayaran Berhasil, Saldo anda sekarang: " + result.toString()
+fun getNominal(saldo: Int): String{
+    if(isPay){
+        return "Pembayaran Berhasil, Saldo anda sekarang: " + saldo.toString()
     }
     else{
         return ""
+    }
+}
+
+fun saveData(name: String, trans: TransHistory){
+    if(name != "" && isPay){
+        trans.namaBank = name.split(".").toTypedArray()[0]
+        trans.transId = name.split(".").toTypedArray()[1]
+        trans.namaMerchant = name.split(".").toTypedArray()[2]
+        trans.transAmount = name.split(".").toTypedArray()[3].toInt()
+        saldo.saldo = saldo.saldo - name.split(".").toTypedArray()[3].toInt()
+        //return "Pembayaran Berhasil, Saldo anda sekarang: " + result.toString()
+        //return result
     }
 }
 
@@ -181,10 +209,13 @@ fun getQRCode(name: String): String {
     }
 }
 
+/*
 @Composable
 @Preview(showBackground = true)
 fun ScanScreenPreview(){
     ScanScreen(
-        /*navController = rememberNavController()*/
+        */
+/*navController = rememberNavController()*//*
+
     )
-}
+}*/

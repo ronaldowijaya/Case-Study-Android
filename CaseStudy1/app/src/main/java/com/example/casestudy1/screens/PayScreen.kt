@@ -1,3 +1,4 @@
+/*
 package com.example.casestudy1.screens
 
 import androidx.compose.foundation.clickable
@@ -17,19 +18,23 @@ import com.example.casestudy1.Screen
 
 @Composable
 fun PayScreen(
-    /*navController: NavController*/
+    */
+/*navController: NavController*//*
+
 ){
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            /*modifier = Modifier.clickable {
+            */
+/*modifier = Modifier.clickable {
                 navController.navigate(route = Screen.Home.route){
                     popUpTo(Screen.Home.route){
                         inclusive = true
                     }
                 }
-            },*/
+            },*//*
+
             text = "PAY" ,
             color = Color.Red,
             fontSize = MaterialTheme.typography.headlineMedium.fontSize,
@@ -42,6 +47,8 @@ fun PayScreen(
 @Preview(showBackground = true)
 fun PayScreenPreview(){
     PayScreen(
-        /*navController = rememberNavController()*/
+        */
+/*navController = rememberNavController()*//*
+
     )
-}
+}*/
